@@ -30,8 +30,8 @@
   /* ---------- HEADER ---------- */
   var HEADER = `
 <header class="topbar wrap">
-    <a class="brand" href="home.html" aria-label="VAZ Tech home"><svg width="35" height="22" aria-hidden="true"><use href="#vaz-logo"/></svg><span>VAZ Tech</span></a>
-    <span class="site">VAZTECH.IN</span>
+    <a class="brand" href="./" aria-label="VAZ Tech home"><svg width="35" height="22" aria-hidden="true"><use href="#vaz-logo"/></svg><span>VAZ Tech</span></a>
+    <span class="site">VAZ.TECH</span>
   </header>
 `;
 
@@ -39,12 +39,12 @@
   var FOOTER = `
 <footer class="foot wrap">
     <div class="about">
-      <a class="brand" href="home.html" aria-label="VAZ Tech home"><svg width="35" height="22" aria-hidden="true"><use href="#vaz-logo"/></svg><span>VAZ Tech</span></a>
-      <p>Legal entity intelligence, case tracking and litigation analytics, powered by AI. Value, Agility, Zen.</p>
+      <a class="brand" href="./" aria-label="VAZ Tech home"><svg width="35" height="22" aria-hidden="true"><use href="#vaz-logo"/></svg><span>VAZ Tech</span></a>
+      <p>A software engineering company based in India.</p>
     </div>
-    <div><h4>Company</h4><ul><li><a href="home.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
-    <div><h4>Help and legal</h4><ul><li><a href="faq.html">FAQ</a></li><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Use</a></li></ul></div>
-    <div class="base"><span>COPYRIGHT <span id="yr">2026</span> VAZ TECH PVT LTD</span><span>WWW.VAZTECH.IN</span></div>
+    <div><h4>Company</h4><ul><li><a href="./">Home</a></li><li><a href="about">About</a></li><li><a href="work">What we do</a></li><li><a href="contact">Contact</a></li></ul></div>
+    <div><h4>Legal</h4><ul><li><a href="privacy">Privacy Policy</a></li><li><a href="terms">Terms of Use</a></li></ul></div>
+    <div class="base"><span>COPYRIGHT <span id="yr">2026</span> VAZ TECH PRIVATE LIMITED</span><span>VAZ.TECH</span></div>
   </footer>
 `;
 
@@ -53,25 +53,21 @@
 <aside class="rail" aria-label="Site navigation">
   <span class="mono" style="font-size:10px;color:var(--faint)">V / A / Z</span>
   <nav id="rail-nav"></nav>
-  <div class="rail-foot">
-    <a href="faq.html">FAQ</a>
-    <a href="privacy-policy.html">Privacy</a>
-    <a href="terms.html">Terms</a>
-  </div>
+  <div class="rail-foot"><a href="privacy">Privacy</a><a href="terms">Terms</a></div>
 </aside>
 `;
 
   /* ---------- Mobile menu ---------- */
   var MENU = `
 <div class="dock" id="dock">
-  <div class="where"><span class="lbl" id="dock-lbl"><b>01</b>HOME</span><span class="bar"><i id="dock-bar"></i></span></div>
+  <div class="where"><span class="lbl" id="dock-lbl"></span><span class="bar"><i id="dock-bar"></i></span></div>
   <button type="button" id="dock-btn" aria-haspopup="dialog" aria-controls="sheet">MENU</button>
 </div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Site menu">
   <div class="inner">
     <div class="head"><span>VAZ TECH MENU</span><button type="button" id="sheet-close">CLOSE</button></div>
     <div id="sheet-nav"></div>
-    <div class="small"><a href="faq.html">FAQ</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a></div>
+    <div class="small"><a href="privacy">Privacy Policy</a><a href="terms">Terms of Use</a></div>
   </div>
 </div>
 `;
@@ -87,12 +83,12 @@
     if (html) el.outerHTML = html.trim();
   });
 
-  // Highlight the current page in the footer and side-menu links
+  // Highlight the current page in the footer and side-menu links (links use clean URLs, e.g. about)
   var art = document.querySelector('.page');
   var page = art ? art.getAttribute('data-page') : '';
   if (page && page !== 'home') {
-    [].forEach.call(document.querySelectorAll('.foot a, .rail-foot a'), function(a){
-      if (a.getAttribute('href') === page + '.html') a.setAttribute('aria-current', 'page');
+    [].forEach.call(document.querySelectorAll('.foot a, .rail-foot a, .sheet .small a'), function(a){
+      if (a.getAttribute('href') === page) a.setAttribute('aria-current', 'page');
     });
   }
 })();

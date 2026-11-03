@@ -2,8 +2,8 @@
 (function(){
   var art0=document.querySelector('.page');
   var PAGE=art0?art0.getAttribute('data-page'):'home';
-  var HOME=(art0&&art0.getAttribute('data-home'))||'index.html';
-  var MAIN=[['home','Home','01',HOME],['about','About','02','about.html'],['services','Services','03','services.html'],['contact','Contact','04','contact.html']];
+  var HOME=(art0&&art0.getAttribute('data-home'))||'./';
+  var MAIN=[['home','Home','01',HOME],['about','About','02','about'],['work','What we do','03','work'],['contact','Contact','04','contact']];
   var article=document.querySelector('.page');
   var NUM=article?article.getAttribute('data-num'):'';
   var TITLE=article?article.getAttribute('data-title'):'';
@@ -95,36 +95,6 @@
   var sc=document.getElementById('sheet-close'); if(sc) sc.addEventListener('click',closeSheet);
   if(sheet) sheet.addEventListener('click',function(e){ if(e.target===sheet) closeSheet(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeSheet(); });
-
-  // ---- FAQ expand / collapse ----
-  var fo=document.getElementById('faq-open'), fc=document.getElementById('faq-close');
-  if(fo) fo.addEventListener('click',function(){[].forEach.call(document.querySelectorAll('.faq details'),function(d){d.open=true;});});
-  if(fc) fc.addEventListener('click',function(){[].forEach.call(document.querySelectorAll('.faq details'),function(d){d.open=false;});});
-
-  // ---- enquiry form (front end only: connect to your email / CRM endpoint before launch) ----
-  var form=document.getElementById('enquiry');
-  if(form){
-    var setErr=function(input,msg){ var f=input.closest('.field'); f.classList.toggle('err',!!msg); f.querySelector('.msg').textContent=msg||''; input.setAttribute('aria-invalid',msg?'true':'false'); };
-    form.addEventListener('submit',function(e){
-      e.preventDefault();
-      var ok=true, first=null;
-      var name=form.querySelector('#f-name'), email=form.querySelector('#f-email'), phone=form.querySelector('#f-phone'), msg=form.querySelector('#f-msg'), consent=form.querySelector('#f-consent');
-      function check(el,cond,text){ if(!cond){ ok=false; setErr(el,text); first=first||el; } else setErr(el,''); }
-      check(name,name.value.trim().length>1,'Enter your full name.');
-      check(email,/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim()),'Enter an email address like name@firm.com.');
-      check(phone,!phone.value.trim()||/^[+()\d\s-]{7,}$/.test(phone.value.trim()),'Use digits, spaces, + or - only.');
-      check(msg,msg.value.trim().length>9,'Tell us a little more (at least 10 characters).');
-      var cr=document.getElementById('consent-row');
-      if(!consent.checked){ ok=false; cr.classList.add('err'); first=first||consent; } else cr.classList.remove('err');
-      if(!ok){ first.focus(); return; }
-      var esc=function(s){return s.replace(/[<>&"]/g,'');};
-      var who=esc(name.value.trim().split(' ')[0]);
-      var help=(form.querySelector('input[name=help]:checked')||{}).value||'enquiry';
-      var arrow='<svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true" style="display:block"><path d="M0 5h12M8.5 1.5L12 5 8.5 8.5" stroke="currentColor" stroke-width="1.3"/></svg>';
-      form.innerHTML='<div class="done"><span class="ring"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M5 11.5l4 4 8-9" stroke="#38A9EA" stroke-width="1.6"/></svg></span><h3>Thank you, '+who+'.</h3><p class="muted">Your '+help.toLowerCase()+' request is with our team. We will reply to '+esc(email.value.trim())+' within <span class="ph">[one business day]</span>.</p><a class="btn ghost" href="'+HOME+'">Back to home <span class="arr">'+arrow+'</span></a></div>';
-    });
-    form.addEventListener('input',function(e){ var f=e.target.closest('.field'); if(f && f.classList.contains('err')) setErr(e.target,''); });
-  }
 
   var yr=document.getElementById('yr'); if(yr) yr.textContent=new Date().getFullYear();
 
